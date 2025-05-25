@@ -1,0 +1,326 @@
+<template>
+  <div 
+    class="landing-page"
+  >
+    <div 
+      class="background-blur"
+      :style="{ backgroundImage: `url(${currentSlides[currentSlideIndex].image})` }"
+    ></div>
+    <div class="aspect-ratio-container">
+      <div class="content-container">
+        <swiper
+          :modules="[SwiperAutoplay, SwiperEffectFade]"
+          :autoplay="{ delay: 5000, disableOnInteraction: false }"
+          :effect="'fade'"
+          :loop="true"
+          :speed="1000"
+          :breakpoints="swiperBreakpoints"
+          class="fullscreen-swiper"
+          @slideChange="handleSlideChange"
+        >
+          <swiper-slide v-for="(slide, index) in currentSlides" :key="index" class="swiper-slide-main">
+            <div 
+              class="slide-content" 
+              :style="{ backgroundImage: `url(${slide.image})` }"
+            ></div>
+          </swiper-slide>
+        </swiper>
+
+        <div class="button-container">
+          <a href="https://www.performing-arts.gov.hk/en/progamme-e-registration.html?group=0315000000000020" target="_blank" rel="noopener noreferrer">
+            <button class="scribble-button subscribe-button">
+              <span class="button-text">
+                <span class="text-zh">訂閱「亞藝無疆」通訊</span>
+                <span class="text-en">Subscribe Asia+ Newsletter</span>
+              </span>
+            </button>
+          </a>
+          
+          <a href="https://www.asiaplus.gov.hk" target="_blank" rel="noopener noreferrer">
+            <button class="scribble-button programme-button">
+              <span class="button-text">
+                <span class="text-zh">回顧亞藝無疆2024精彩節目</span>
+                <span class="text-en">Asia+ 2024 Programmes</span>
+              </span>
+            </button>
+          </a>
+
+          <div class="social-icons">
+            <a href="https://www.facebook.com/asiaplusfestival/" target="_blank" rel="noopener noreferrer" class="social-icon facebook">
+              <font-awesome-icon :icon="['fab', 'facebook-f']" />
+            </a>
+            <a href="https://www.instagram.com/asiaplusfestival/" target="_blank" rel="noopener noreferrer" class="social-icon instagram">
+              <font-awesome-icon :icon="['fab', 'instagram']" />
+            </a>
+            <a href="https://www.youtube.com/@asiaplusfestival" target="_blank" rel="noopener noreferrer" class="social-icon youtube">
+              <font-awesome-icon :icon="['fab', 'youtube']" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, EffectFade } from 'swiper/modules'
+import type { Swiper as SwiperType } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/effect-fade'
+
+const SwiperAutoplay = Autoplay
+const SwiperEffectFade = EffectFade
+
+const swiperBreakpoints = {
+  320: {
+    slidesPerView: 1,
+  },
+  768: {
+    slidesPerView: 1,
+  },
+  1024: {
+    slidesPerView: 1,
+  }
+}
+
+// Desktop slides
+const desktopSlides = [
+  { 
+    image: "/images/slide1.jpg",
+    backgroundColor: 'var(--slide-bg-1)'
+  },
+  { 
+    image: "/images/slide2.jpg",
+    backgroundColor: 'var(--slide-bg-2)'
+  }
+]
+
+// Mobile slides
+const mobileSlides = [
+  { 
+    image: "/images/slide1.jpg",
+    backgroundColor: 'var(--slide-bg-1)'
+  },
+  { 
+    image: "/images/slide2.jpg",
+    backgroundColor: 'var(--slide-bg-2)'
+  }
+]
+
+const windowWidth = ref(window.innerWidth)
+const isMobile = computed(() => windowWidth.value <= 768)
+const currentSlideIndex = ref(0)
+
+const currentSlides = computed(() => {
+  return isMobile.value ? mobileSlides : desktopSlides
+})
+
+const currentBackgroundColor = computed(() => {
+  return currentSlides.value[currentSlideIndex.value].backgroundColor
+})
+
+const handleSlideChange = (swiper: SwiperType) => {
+  currentSlideIndex.value = swiper.realIndex
+}
+
+const handleResize = () => {
+  windowWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
+</script>
+
+<style lang="scss" scoped>
+// Variables
+$button-container-width-desktop: 300px;
+$button-container-width-mobile: 250px;
+$button-padding-desktop: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+$button-padding-mobile: 0.8rem 1.5rem;
+$button-font-size-desktop: clamp(1rem, 2vw, 1.1rem);
+$button-font-size-mobile: 0.9rem;
+$social-icon-size-desktop: 2.5rem;
+$social-icon-size-mobile: 2rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-hover {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.landing-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  @include flex-center;
+}
+
+.background-blur {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.8);
+  transform: scale(1.1);
+  transition: background-image 1s ease;
+  z-index: -1;
+}
+
+.aspect-ratio-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  @include flex-center;
+}
+
+.content-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+}
+
+.fullscreen-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide-main {
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+}
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (min-width: 769px) {
+    max-width: calc(100vh * 16 / 9);
+    max-height: 100vh;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100vw;
+    max-height: calc(100vw * 16 / 9);
+  }
+}
+
+.button-container {
+  position: fixed;
+  bottom: var(--page-padding);
+  right: var(--page-padding);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: $button-container-width-desktop;
+
+  @media (max-width: 768px) {
+    bottom: var(--page-padding);
+    right: var(--page-padding);
+    gap: 0.8rem;
+    width: $button-container-width-mobile;
+  }
+}
+
+.scribble-button {
+  background: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: $button-padding-desktop;
+  border-radius: 100px;
+  font-size: $button-font-size-desktop;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+  font-weight: 600;
+  @include button-hover;
+
+  &.programme-button {
+    border: 2px solid var(--button-bg-color);
+  }
+
+  @media (max-width: 768px) {
+    padding: $button-padding-mobile;
+    font-size: $button-font-size-mobile;
+  }
+}
+
+.button-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  .text-zh,
+  .text-en {
+    font-size: 1em;
+
+    @media (max-width: 768px) {
+      font-size: 0.85em;
+    }
+  }
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: .2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+}
+
+.social-icon {
+  color: white;
+  font-size: 1.5rem;
+  @include flex-center;
+  @include button-hover;
+  width: $social-icon-size-desktop;
+  height: $social-icon-size-desktop;
+  border-radius: 50%;
+
+  &.facebook {
+    background-color: var(--facebook-color);
+  }
+
+  &.instagram {
+    background-color: var(--instagram-color);
+  }
+
+  &.youtube {
+    background-color: var(--youtube-color);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    width: $social-icon-size-mobile;
+    height: $social-icon-size-mobile;
+  }
+}
+</style> 

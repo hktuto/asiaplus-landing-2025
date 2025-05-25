@@ -1,0 +1,16 @@
+:root {
+  --button-bg-color: #CDF7FB;
+  --button-text-color: #D65884;
+  
+  /* Social Media Brand Colors */
+  --facebook-color: #1877F2;
+  --instagram-color: #E4405F;
+  --youtube-color: #FF0000;
+
+  /* Slide Background Colors */
+  --slide-bg-1: #59818a;
+  --slide-bg-2: #bbbdbc;
+
+  /* Layout */
+  --page-padding: clamp(1rem, 3vw, 2rem);
+} 
