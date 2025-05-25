@@ -100,7 +100,7 @@ const desktopSlides = [
 // Mobile slides
 const mobileSlides = [
   { 
-    image: "/images/slide1.jpg",
+    image: "/images/mobile-slide1.jpg",
     backgroundColor: 'var(--slide-bg-1)'
   },
   { 
@@ -115,10 +115,6 @@ const currentSlideIndex = ref(0)
 
 const currentSlides = computed(() => {
   return isMobile.value ? mobileSlides : desktopSlides
-})
-
-const currentBackgroundColor = computed(() => {
-  return currentSlides.value[currentSlideIndex.value].backgroundColor
 })
 
 const handleSlideChange = (swiper: SwiperType) => {
@@ -207,6 +203,14 @@ $social-icon-size-mobile: 2rem;
   width: 100%;
   height: 100%;
   @include flex-center;
+  .slide-content {
+    opacity: 0;
+  }
+  &.swiper-slide-active {
+    .slide-content {
+      opacity: 1;
+    }
+  }
 }
 
 .slide-content {
@@ -215,7 +219,7 @@ $social-icon-size-mobile: 2rem;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-
+  
   @media (min-width: 769px) {
     max-width: calc(100vh * 16 / 9);
     max-height: 100vh;
