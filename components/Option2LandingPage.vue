@@ -8,23 +8,7 @@
     ></div>
     <div class="aspect-ratio-container">
       <div class="content-container">
-        <swiper
-          :modules="[SwiperAutoplay, SwiperEffectFade]"
-          :autoplay="{ delay: 5000, disableOnInteraction: false }"
-          :effect="'fade'"
-          :loop="true"
-          :speed="1000"
-          :breakpoints="swiperBreakpoints"
-          class="fullscreen-swiper"
-          @slideChange="handleSlideChange"
-        >
-          <swiper-slide v-for="(slide, index) in currentSlides" :key="index" class="swiper-slide-main">
-            <div 
-              class="slide-content" 
-              :style="{ backgroundImage: `url(${slide.image})` }"
-            ></div>
-          </swiper-slide>
-        </swiper>
+        <Slideshow :slides="currentSlides" :breakpoints="swiperBreakpoints" @slideChange="handleSlideChange" />
 
         <div class="button-toggle" v-if="isMobile" @click="showMenu = !showMenu">
           <span :class="{'bar': true, 'open': showMenu}"></span>
@@ -72,14 +56,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, EffectFade } from 'swiper/modules'
-import type { Swiper as SwiperType } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/effect-fade'
-
-const SwiperAutoplay = Autoplay
-const SwiperEffectFade = EffectFade
+import Slideshow from './Slideshow.vue'
 
 const swiperBreakpoints = {
   320: {
@@ -134,8 +111,8 @@ const currentSlides = computed(() => {
   return isMobile.value ? mobileSlides : desktopSlides
 })
 
-const handleSlideChange = (swiper: SwiperType) => {
-  currentSlideIndex.value = swiper.realIndex
+const handleSlideChange = (index: number) => {
+  currentSlideIndex.value = index
 }
 
 const handleResize = () => {
@@ -209,43 +186,6 @@ $social-icon-size-mobile: 2rem;
   width: 100%;
   height: 100%;
   @include flex-center;
-}
-
-.fullscreen-swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide-main {
-  width: 100%;
-  height: 100%;
-  @include flex-center;
-  .slide-content {
-    opacity: 0;
-  }
-  &.swiper-slide-active {
-    .slide-content {
-      opacity: 1;
-    }
-  }
-}
-
-.slide-content {
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  @media (min-width: 769px) {
-    max-width: calc(100vh * 16 / 9);
-    max-height: 100vh;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 100vw;
-    max-height: calc(100vw * 16 / 9);
-  }
 }
 
 .button-toggle {
