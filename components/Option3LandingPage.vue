@@ -195,7 +195,7 @@ $social-icon-size-mobile: 2rem;
   z-index: 20;
   width: 48px;
   height: 48px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(194, 52, 98, 0.92);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
