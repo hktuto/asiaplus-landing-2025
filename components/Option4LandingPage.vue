@@ -228,7 +228,7 @@ $social-icon-size-mobile: 2rem;
 
   @media (max-width: 768px) {
     width: 100vw;
-    max-width: 400px;
+    max-width: 600px;
     padding: 1.5rem 1rem 3rem 1rem;
     gap: 1rem;
   }
