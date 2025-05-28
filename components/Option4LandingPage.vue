@@ -196,7 +196,7 @@ $social-icon-size-mobile: 2rem;
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
+  height: 100svh;
   z-index: 100;
   display: flex;
   flex-direction: column;
