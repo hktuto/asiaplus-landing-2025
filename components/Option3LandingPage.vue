@@ -26,7 +26,15 @@
           </swiper-slide>
         </swiper>
 
-        <div class="button-container">
+        <div class="button-toggle" @click="showMenu = !showMenu">
+          <span :class="{'bar': true, 'open': showMenu}"></span>
+          <span :class="{'bar': true, 'open': showMenu}"></span>
+          <span :class="{'bar': true, 'open': showMenu}"></span>
+        </div>
+        <div 
+          class="button-container" 
+          :class="{ 'show': showMenu, 'hide': !showMenu }"
+        >
           <a href="https://www.performing-arts.gov.hk/en/progamme-e-registration.html?group=0315000000000020" target="_blank" rel="noopener noreferrer">
             <button class="scribble-button subscribe-button">
               <span class="button-text">
@@ -120,6 +128,7 @@ const mobileSlides = [
 const windowWidth = ref(window.innerWidth)
 const isMobile = computed(() => windowWidth.value <= 768)
 const currentSlideIndex = ref(0)
+const showMenu = ref(false)
 
 const currentSlides = computed(() => {
   return isMobile.value ? mobileSlides : desktopSlides
@@ -239,6 +248,41 @@ $social-icon-size-mobile: 2rem;
   }
 }
 
+.button-toggle {
+  position: fixed;
+  bottom: var(--page-padding);
+  right: var(--page-padding);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  .bar {
+    display: block;
+    width: 26px;
+    height: 3px;
+    margin: 3px 0;
+    background: #fff;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  & .bar.open:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  & .bar.open:nth-child(2) {
+    opacity: 0;
+  }
+  & .bar.open:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+}
+
 .button-container {
   position: fixed;
   bottom: var(--page-padding);
@@ -248,12 +292,26 @@ $social-icon-size-mobile: 2rem;
   flex-direction: column;
   gap: 1rem;
   width: $button-container-width-desktop;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
 
   @media (max-width: 768px) {
     bottom: var(--page-padding);
     right: var(--page-padding);
     gap: 0.8rem;
     width: $button-container-width-mobile;
+  }
+
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
 

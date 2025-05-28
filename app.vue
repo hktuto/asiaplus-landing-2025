@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <LandingPage />
-  </div>
+  <NuxtPage />
 </template>
 
 <style>
