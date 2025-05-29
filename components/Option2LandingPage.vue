@@ -130,8 +130,8 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 // Variables
-$button-container-width-desktop: 300px;
-$button-container-width-mobile: 250px;
+$button-container-width-desktop: 600px;
+$button-container-width-mobile: 320px;
 $button-padding-desktop: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
 $button-padding-mobile: 0.8rem 1.5rem;
 $button-font-size-desktop: clamp(1rem, 2vw, 1.1rem);
@@ -241,7 +241,8 @@ $social-icon-size-mobile: 2rem;
     bottom: var(--page-padding);
     right: var(--page-padding);
     gap: 0.8rem;
-    width: $button-container-width-mobile;
+    width: 100svw;
+    max-width: $button-container-width-mobile;
   }
 
   &.hide {

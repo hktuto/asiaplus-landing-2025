@@ -134,7 +134,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 // Variables
-$button-container-width-desktop: 300px;
+$button-container-width-desktop: 600px;
 $button-container-width-mobile: 250px;
 $button-padding-desktop: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
 $button-padding-mobile: 0.8rem 1.5rem;
@@ -201,7 +201,7 @@ $social-icon-size-mobile: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 320px;
+  width: 600px;
   max-width: 90vw;
   padding: 2.5rem 2rem 4rem 2rem;
   background: rgba(194, 52, 98, 0.92); // #c23462
@@ -228,7 +228,7 @@ $social-icon-size-mobile: 2rem;
 
   @media (max-width: 768px) {
     width: 100vw;
-    max-width: 600px;
+    max-width: 320px;
     padding: 1.5rem 1rem 3rem 1rem;
     gap: 1rem;
   }
