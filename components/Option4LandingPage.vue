@@ -337,7 +337,7 @@ $social-icon-size-mobile: 2rem;
 
 .button-toggle {
   position: fixed;
-  bottom: var(--page-padding);
+  top: var(--page-padding);
   right: var(--page-padding);
   z-index: 20;
   width: 48px;
