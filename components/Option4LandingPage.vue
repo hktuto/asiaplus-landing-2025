@@ -10,6 +10,9 @@
       <div class="content-container">
         <Slideshow :slides="currentSlides" :breakpoints="swiperBreakpoints" @slideChange="handleSlideChange" />
 
+        <div class="slide-text" :style="{ color: currentSlides[currentSlideIndex].textColor }" v-html="currentSlides[currentSlideIndex].text">
+        </div>
+
         <div 
           class="button-container" 
           :class="{ 'show': showMenu, 'hide': !showMenu }"
@@ -77,32 +80,48 @@ const swiperBreakpoints = {
 // Desktop slides
 const desktopSlides = [
   { 
-    image: "/images/s1.jpg"
+    image: "/images/s1.jpg",
+    text: " ",
+    textColor: "#c23462"
   },
   { 
-    image: "/images/s2.jpg"
+    image: "/images/s2.jpg",
+    text: "19-21.9.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#ffffff"
   },
   {
-    image: "/images/s3.jpg"
+    image: "/images/s3.jpg",
+    text: "21.10.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#ffffff"
   },
   {
-    image: "/images/s4.jpg"
+    image: "/images/s4.jpg",
+    text: "7-8.11.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#9ab9bc"
   }
 ]
 
 // Mobile slides
 const mobileSlides = [
   { 
-    image: "/images/s1-mobile.jpg"
+    image: "/images/s1-mobile.jpg",
+    text: " ",
+    textColor: "#ffffff"
   },
   { 
-    image: "/images/s2-mobile.jpg"
+    image: "/images/s2-mobile.jpg",
+    text: "19-21.9.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#ffffff"
   },
   {
-    image: "/images/s3-mobile.jpg"
+    image: "/images/s3-mobile.jpg",
+    text: "21.10.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#ffffff"
   },
   {
-    image: "/images/s4-mobile.jpg"
+    image: "/images/s4-mobile.jpg",
+    text: "7-8.11.2025<br>香港文化中心 Hong Kong Cultural Centre",
+    textColor: "#9ab9bc"
   }
 ]
 
@@ -368,5 +387,16 @@ $social-icon-size-mobile: 2rem;
   & .bar.open:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
+}
+
+.slide-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  z-index: 10;
 }
 </style> 
