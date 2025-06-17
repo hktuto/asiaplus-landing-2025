@@ -10,8 +10,8 @@
       <div class="content-container">
         <Slideshow :slides="currentSlides" :breakpoints="swiperBreakpoints" @slideChange="handleSlideChange" />
 
-        <div class="slide-text" :style="{ color: currentSlides[currentSlideIndex].textColor }" v-html="currentSlides[currentSlideIndex].text">
-        </div>
+        <!-- <div class="slide-text" :style="{ color: currentSlides[currentSlideIndex].textColor }" v-html="currentSlides[currentSlideIndex].text">
+        </div> -->
 
         <div 
           class="button-container" 
